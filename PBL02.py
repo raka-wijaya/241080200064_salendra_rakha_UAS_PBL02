@@ -1,7 +1,7 @@
 import sqlite3
 
 #untuk koneksi ke database
-koneksi = sqlite3.connect('P01201.db')
+koneksi = sqlite3.connect('cars.db')
 cur = koneksi.cursor()
 
 #untuk membuat tabel
@@ -9,20 +9,22 @@ cur.execute('''
 CREATE TABLE IF NOT EXISTS drinks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    price REAL NOT NULL,
-    stock INTEGER NOT NULL
+    brand REAL NOT NULL,
+    model INTEGER NOT NULL,
+    price REAL NOT NULL
 )
 ''')
 koneksi.commit()
 
 #fungsi untuk create data
-def create_drink():
-    name = input("Masukkan nama minuman: ")
-    price = float(input("Masukkan harga minuman: "))
-    stock = int(input("Masukkan stok minuman: "))
-    cur.execute("insert into drinks (name, price, stock) values (?, ?, ?)", (name, price, stock))
-    koneksi.commit()
-    print("Minuman berhasil ditambahkan.")
+cur.execute("""
+            insert into cars (
+                name, brand, model, price
+            ) values (
+                'Coca Cola', 'Coca Cola Company', 2023, 15000
+            )
+            """)
+koneksi.commit()
     
 #fungsi untuk read data
 def read_drinks():
